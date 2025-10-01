@@ -1,0 +1,9 @@
+[phases.setup]
+nixPkgs = ["python39", "libGL", "glib", "libxcrypt-legacy"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt"]
+
+[start]
+cmd = "gunicorn --bind 0.0.0.0:${PORT:-8080} --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app"
+
