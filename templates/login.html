@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 관상 분석 - 로그인</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#4a69bd">
+</head>
+<body>
+    <div class="container auth-container">
+        <div class="auth-box">
+            <div class="form-container" id="login-container">
+                <h2>로그인</h2>
+                <form id="login-form">
+                    <input type="email" name="email" placeholder="이메일" required>
+                    <input type="password" name="password" placeholder="비밀번호" required>
+                    <button type="submit">로그인</button>
+                </form>
+                <p>계정이 없으신가요? <a href="#" id="show-signup">회원가입</a></p>
+            </div>
+
+            <div class="form-container hidden" id="signup-container">
+                <h2>회원가입</h2>
+                <form id="signup-form">
+                    <input type="text" name="name" placeholder="이름" required>
+                    <input type="email" name="email" placeholder="이메일" required>
+                    <input type="password" name="password" placeholder="비밀번호" required>
+                    <button type="submit">회원가입</button>
+                </form>
+                <p>이미 계정이 있으신가요? <a href="#" id="show-login">로그인</a></p>
+            </div>
+            <div id="error-message" class="error"></div>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
+    <script>
+      // Prevent form submit on Enter keypress inside inputs on iOS
+      document.addEventListener('keydown', function(e){ if(e.key === 'Enter' && e.target.tagName === 'INPUT'){ e.preventDefault(); }});
+    </script>
+  </body>
+</html>
+
+

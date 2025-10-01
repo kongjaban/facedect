@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 관상 분석</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#4a69bd">
+</head>
+<body>
+    <header>
+        <h1>AI 관상 분석</h1>
+        <div class="user-info">
+            <span id="user-name"></span>
+            <a href="/logout">로그아웃</a>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <div class="card" id="upload-card">
+            <h2>얼굴 사진 분석</h2>
+            <p>정면을 바라보는 선명한 얼굴 사진을 업로드해주세요.</p>
+            <form id="upload-form">
+                <input type="file" id="image-input" name="image" accept="image/*" required>
+                <label for="image-input" class="file-label">파일 선택</label>
+                <span id="file-name">선택된 파일 없음</span>
+                
+                <!-- Optional user info for analysis -->
+                <div class="optional-inputs">
+                  <div class="row">
+                    <label for="gender">성별 (선택)</label>
+                    <select id="gender" name="gender">
+                      <option value="">선택 안 함</option>
+                      <option value="male">남성</option>
+                      <option value="female">여성</option>
+                      <option value="other">기타</option>
+                    </select>
+                  </div>
+                  <div class="row">
+                    <label for="birth_date">생년월일 (선택)</label>
+                    <input type="date" id="birth_date" name="birth_date" placeholder="YYYY-MM-DD">
+                  </div>
+                  <div class="row">
+                    <label for="birth_time">출생시각 (선택)</label>
+                    <input type="time" id="birth_time" name="birth_time" placeholder="HH:MM">
+                  </div>
+                </div>
+
+                <button type="submit">분석 시작</button>
+            </form>
+        </div>
+
+        <div class="card hidden" id="loading-card">
+            <div class="loader"></div>
+            <div class="progress-bar" aria-label="분석 진행도">
+                <div class="progress-bar-fill" id="loading-progress" style="width:0%"></div>
+            </div>
+            <p id="loading-text">얼굴을 분석하고 있습니다. 잠시만 기다려주세요...</p>
+        </div>
+
+        <div class="card hidden" id="result-card">
+            <h2>분석 결과</h2>
+            <div class="result-content">
+                <div class="result-image">
+                    <img id="analyzed-image" src="" alt="분석된 이미지">
+                </div>
+                <div class="result-text">
+                    <h3>종합 해석</h3>
+                    <p id="overall-reading"></p>
+                    <h3>성격 및 기질</h3>
+                    <p id="personality"></p>
+                    <div id="strengths-section" class="subsection">
+                        <h4>강점</h4>
+                        <ul id="strengths-list"></ul>
+                    </div>
+                    <h3>주요 운세</h3>
+                    <div id="fortune-aspects"></div>
+                    <h3>행운의 요소</h3>
+                    <div id="lucky-elements"></div>
+                    <p id="lucky-directions"></p>
+                    <h3>조언</h3>
+                    <p id="advice"></p>
+                    <div id="advice-section" class="subsection">
+                        <h4>구체적 조언</h4>
+                        <ul id="advice-list"></ul>
+                    </div>
+                    <div id="landmarks-section" class="subsection">
+                        <h4>얼굴 특징점 좌표</h4>
+                        <p>MediaPipe에서 감지된 468개 얼굴 특징점의 정규화된 좌표 (0-1 범위)</p>
+                        <div id="landmarks-data" class="landmarks-container"></div>
+                    </div>
+                </div>
+            </div>
+            <button id="reset-button">새로운 분석하기</button>
+        </div>
+        <div id="error-message" class="error"></div>
+    </div>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
+
+
