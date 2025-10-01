@@ -6,11 +6,11 @@ WORKDIR /app
 
 # 시스템 패키지 업데이트 및 OpenCV 의존성 설치
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     libsm6 \
     libxext6 \
-    libxrender-dev \
+    libxrender1 \
     libgomp1 \
     gcc \
     g++ \
