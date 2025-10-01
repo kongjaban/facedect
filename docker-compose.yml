@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3001:8080"
+    environment:
+      - SIGNUP_WEBHOOK_URL=https://sijinn8n.app.n8n.cloud/webhook/cd49d1ea-4700-48e4-8df4-40983abaa991
+      - SIGNIN_WEBHOOK_URL=https://sijinn8n.app.n8n.cloud/webhook/2f11a0b8-4a2b-417f-a7a2-efd5b8d28614
+      - N8N_FACE_READING_URL=https://sijinn8n.app.n8n.cloud/webhook/db346cbb-5e5a-4afa-84f5-4485ff8b4ff3
+      - SECRET_KEY=your-production-secret-key-change-this
+      - FLASK_ENV=production
+    volumes:
+      - .:/app
+    restart: unless-stopped
+

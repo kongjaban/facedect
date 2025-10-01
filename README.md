@@ -18,30 +18,49 @@ python app.py
 
 서버가 http://localhost:3001 에서 실행됩니다.
 
-### Railway 배포 방법
+### Docker로 실행하기 (추천)
 
-1. **Railway 프로젝트 생성**
-   - https://railway.app 에 로그인
-   - "New Project" → "Deploy from GitHub repo" 선택
+#### 1. Docker 설치
+- **Mac**: [Docker Desktop for Mac](https://www.docker.com/products/docker-desktop) 다운로드 및 설치
+- **Windows**: [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop) 다운로드 및 설치
+- **Linux**: 공식 Docker 설치 가이드 참조
 
-2. **환경변수 설정**
-   Railway 대시보드에서 다음 환경변수를 설정하세요:
-   ```
-   SIGNUP_WEBHOOK_URL=https://sijinn8n.app.n8n.cloud/webhook/cd49d1ea-4700-48e4-8df4-40983abaa991
-   SIGNIN_WEBHOOK_URL=https://sijinn8n.app.n8n.cloud/webhook/2f11a0b8-4a2b-417f-a7a2-efd5b8d28614
-   N8N_FACE_READING_URL=https://sijinn8n.app.n8n.cloud/webhook/db346cbb-5e5a-4afa-84f5-4485ff8b4ff3
-   SECRET_KEY=랜덤-비밀키-생성하세요
-   FLASK_ENV=production
-   PORT=3001
-   ```
+#### 2. Docker로 로컬 실행
+```bash
+# Docker 이미지 빌드 및 실행
+docker-compose up --build
 
-3. **자동 배포**
-   - GitHub에 push하면 Railway가 자동으로 배포합니다
-   - Procfile과 railway.json이 설정을 자동으로 처리합니다
+# 백그라운드 실행
+docker-compose up -d
 
-4. **도메인 설정**
-   - Railway 대시보드에서 자동 생성된 도메인을 사용하거나
-   - 커스텀 도메인을 연결할 수 있습니다
+# 중지
+docker-compose down
+```
+
+서버가 http://localhost:3001 에서 실행됩니다.
+
+#### 3. Docker 프로덕션 배포
+
+**Google Cloud Run 배포:**
+```bash
+# Google Cloud SDK 설치 후
+gcloud builds submit --tag gcr.io/PROJECT-ID/face-analysis
+gcloud run deploy face-analysis --image gcr.io/PROJECT-ID/face-analysis --platform managed --region asia-northeast3 --allow-unauthenticated
+```
+
+**Render.com 배포:**
+1. https://render.com 에 로그인
+2. "New Web Service" 선택
+3. GitHub 레포지토리 연결
+4. "Docker" 선택
+5. 환경변수 설정 후 배포
+
+**Fly.io 배포:**
+```bash
+# Fly CLI 설치 후
+fly launch
+fly deploy
+```
 
 ### API
 - POST `/api/face-analysis` with form-data `image` (file): returns facial feature analysis and a visualization image (background blur, face focus).
